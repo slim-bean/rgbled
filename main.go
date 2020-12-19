@@ -61,6 +61,7 @@ func main() {
 		if time.Now().Hour() > 5 {
 			d.Display(controller, rgbLEDs)
 			c.Display(controller, rgbLEDs)
+			c.Display(controller, rgbLEDs)
 			b.Display(controller, rgbLEDs)
 		} else {
 			for i := 0; i < len(rgbLEDs); i++ {
