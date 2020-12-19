@@ -54,16 +54,13 @@ func main() {
 		os.Exit(0)
 	}()
 
-
 	//d := pattern.Chase{}
-	c := pattern.Collide{}
+	//c := pattern.Collide{}
+	b := pattern.Breath{}
 	for {
-		c.Display(controller,rgbLEDs)
+		b.Display(controller, rgbLEDs)
 	}
 }
-
-
-
 
 func rando(d []rpioapa102.LED) {
 	for i := 0; i < len(d); i++ {

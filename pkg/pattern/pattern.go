@@ -69,4 +69,96 @@ func (Collide) Display(c rpioapa102.LEDController, l []rpioapa102.LED) {
 		c.Write(l)
 		time.Sleep(10 * time.Millisecond)
 	}
+	for i := 0; i < len(l); i++ {
+		if i > 0 {
+			l[i-1] = off
+			l[len(l)-i] = off
+		}
+		if i > len(l)/2 {
+			l[i] = cyan
+			l[len(l)-1-i] = cyan
+		} else {
+			l[i] = blue
+			l[len(l)-1-i] = green
+		}
+		c.Write(l)
+		time.Sleep(10 * time.Millisecond)
+	}
+}
+
+type Breath struct{}
+
+func (Breath) Display(c rpioapa102.LEDController, l []rpioapa102.LED) {
+	for i := 0; i < 256; i += 5 {
+		for j := 0; j < len(l); j++ {
+			l[j] = rpioapa102.LED{
+				Red:        byte(i),
+				Green:      0,
+				Blue:       0,
+				Brightness: 31,
+			}
+		}
+		c.Write(l)
+		time.Sleep(10 * time.Millisecond)
+	}
+	for i := 255; i >= 0; i -= 5 {
+		for j := 0; j < len(l); j++ {
+			l[j] = rpioapa102.LED{
+				Red:        byte(i),
+				Green:      0,
+				Blue:       0,
+				Brightness: 31,
+			}
+		}
+		c.Write(l)
+		time.Sleep(10 * time.Millisecond)
+	}
+	for i := 0; i < 256; i += 5 {
+		for j := 0; j < len(l); j++ {
+			l[j] = rpioapa102.LED{
+				Red:        0,
+				Green:      byte(i),
+				Blue:       0,
+				Brightness: 31,
+			}
+		}
+		c.Write(l)
+		time.Sleep(10 * time.Millisecond)
+	}
+	for i := 255; i >= 0; i -= 5 {
+		for j := 0; j < len(l); j++ {
+			l[j] = rpioapa102.LED{
+				Red:        0,
+				Green:      byte(i),
+				Blue:       0,
+				Brightness: 31,
+			}
+		}
+		c.Write(l)
+		time.Sleep(10 * time.Millisecond)
+	}
+	for i := 0; i < 256; i += 5 {
+		for j := 0; j < len(l); j++ {
+			l[j] = rpioapa102.LED{
+				Red:        0,
+				Green:      0,
+				Blue:       byte(i),
+				Brightness: 31,
+			}
+		}
+		c.Write(l)
+		time.Sleep(10 * time.Millisecond)
+	}
+	for i := 255; i >= 0; i -= 5 {
+		for j := 0; j < len(l); j++ {
+			l[j] = rpioapa102.LED{
+				Red:        0,
+				Green:      0,
+				Blue:       byte(i),
+				Brightness: 31,
+			}
+		}
+		c.Write(l)
+		time.Sleep(10 * time.Millisecond)
+	}
 }
