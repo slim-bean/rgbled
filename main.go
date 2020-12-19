@@ -54,11 +54,21 @@ func main() {
 		os.Exit(0)
 	}()
 
-	//d := pattern.Chase{}
-	//c := pattern.Collide{}
+	d := pattern.Chase{}
+	c := pattern.Collide{}
 	b := pattern.Breath{}
 	for {
-		b.Display(controller, rgbLEDs)
+		if time.Now().Hour() > 5 {
+			d.Display(controller, rgbLEDs)
+			c.Display(controller, rgbLEDs)
+			b.Display(controller, rgbLEDs)
+		} else {
+			for i := 0; i < len(rgbLEDs); i++ {
+				rgbLEDs[i] = rpioapa102.LED{0, 0, 0, 0}
+			}
+			controller.Write(rgbLEDs)
+			time.Sleep(10 * time.Second)
+		}
 	}
 }
 

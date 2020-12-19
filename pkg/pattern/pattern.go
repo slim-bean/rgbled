@@ -32,8 +32,8 @@ func (Chase) Display(c rpioapa102.LEDController, l []rpioapa102.LED) {
 
 	for cl := 0; cl < len(colors); cl++ {
 		for i := 0; i < len(l); i++ {
-			if i > 0 {
-				l[i-1] = off
+			if i > 5 {
+				l[i-6] = off
 			}
 			l[i] = colors[cl]
 			c.Write(l)
@@ -41,8 +41,8 @@ func (Chase) Display(c rpioapa102.LEDController, l []rpioapa102.LED) {
 		}
 
 		for i := len(l) - 1; i >= 0; i-- {
-			if i < len(l)-1 {
-				l[i+1] = off
+			if i < len(l)-6 {
+				l[i+5] = off
 			}
 			l[i] = colors[cl]
 			c.Write(l)
