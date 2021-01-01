@@ -61,16 +61,22 @@ func main() {
 	cv := pattern.VioletChase{}
 	c := pattern.Collide{}
 	b := pattern.Breath{}
+	nye := pattern.NewYear{}
 
 	d := []pattern.Pattern{cr, cg, cb, cc, cv, c, c, c, b, b, b}
 
 	for {
-		if time.Now().Hour() > 5 {
+		if time.Now().Month() == time.December &&
+			time.Now().Day() == 31 &&
+			time.Now().Hour() == 23 &&
+			time.Now().Minute() == 59 &&
+			time.Now().Second() > 49 {
+			nye.Display(controller, rgbLEDs)
+			for i := 0; i < 100; i++ {
+				d[random.Intn(len(d)-1)].Display(controller, rgbLEDs)
+			}
+		} else if time.Now().Hour() > 5 {
 			d[random.Intn(len(d)-1)].Display(controller, rgbLEDs)
-			//d.Display(controller, rgbLEDs)
-			//c.Display(controller, rgbLEDs)
-			//c.Display(controller, rgbLEDs)
-			//b.Display(controller, rgbLEDs)
 		} else {
 			for i := 0; i < len(rgbLEDs); i++ {
 				rgbLEDs[i] = rpioapa102.LED{0, 0, 0, 0}
@@ -79,19 +85,4 @@ func main() {
 			time.Sleep(10 * time.Second)
 		}
 	}
-}
-
-func rando(d []rpioapa102.LED) {
-	for i := 0; i < len(d); i++ {
-		d[i] = rpioapa102.LED{
-			Red:        randomByte(),
-			Green:      randomByte(),
-			Blue:       randomByte(),
-			Brightness: 10,
-		}
-	}
-}
-
-func randomByte() byte {
-	return byte(random.Intn(256))
 }
