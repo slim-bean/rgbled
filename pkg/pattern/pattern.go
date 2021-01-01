@@ -15,39 +15,143 @@ var (
 	red    = rpioapa102.LED{Red: 255, Green: 0, Blue: 0, Brightness: 31}
 	green  = rpioapa102.LED{Red: 0, Green: 255, Blue: 0, Brightness: 31}
 	blue   = rpioapa102.LED{Red: 0, Green: 0, Blue: 255, Brightness: 31}
-	purple = rpioapa102.LED{Red: 255, Green: 0, Blue: 255, Brightness: 31}
+	violet = rpioapa102.LED{Red: 255, Green: 0, Blue: 255, Brightness: 31}
 	cyan   = rpioapa102.LED{Red: 0, Green: 255, Blue: 255, Brightness: 31}
 	yellow = rpioapa102.LED{Red: 255, Green: 255, Blue: 0, Brightness: 31}
 )
 
-type Chase struct{}
+type RedChase struct{}
 
-func (Chase) Display(c rpioapa102.LEDController, l []rpioapa102.LED) {
+func (RedChase) Display(c rpioapa102.LEDController, l []rpioapa102.LED) {
 	for i := 0; i < len(l); i++ {
 		l[i] = off
 	}
 	c.Write(l)
 
-	colors := []rpioapa102.LED{red, green, blue, purple, cyan}
-
-	for cl := 0; cl < len(colors); cl++ {
-		for i := 0; i < len(l); i++ {
-			if i > 5 {
-				l[i-6] = off
-			}
-			l[i] = colors[cl]
-			c.Write(l)
-			time.Sleep(10 * time.Millisecond)
+	for i := 0; i < len(l); i++ {
+		if i > 5 {
+			l[i-6] = off
 		}
+		l[i] = red
+		c.Write(l)
+		time.Sleep(10 * time.Millisecond)
+	}
 
-		for i := len(l) - 1; i >= 0; i-- {
-			if i < len(l)-6 {
-				l[i+5] = off
-			}
-			l[i] = colors[cl]
-			c.Write(l)
-			time.Sleep(10 * time.Millisecond)
+	for i := len(l) - 1; i >= 0; i-- {
+		if i < len(l)-6 {
+			l[i+5] = off
 		}
+		l[i] = red
+		c.Write(l)
+		time.Sleep(10 * time.Millisecond)
+	}
+}
+
+type GreenChase struct{}
+
+func (GreenChase) Display(c rpioapa102.LEDController, l []rpioapa102.LED) {
+	for i := 0; i < len(l); i++ {
+		l[i] = off
+	}
+	c.Write(l)
+
+	for i := 0; i < len(l); i++ {
+		if i > 5 {
+			l[i-6] = off
+		}
+		l[i] = green
+		c.Write(l)
+		time.Sleep(10 * time.Millisecond)
+	}
+
+	for i := len(l) - 1; i >= 0; i-- {
+		if i < len(l)-6 {
+			l[i+5] = off
+		}
+		l[i] = green
+		c.Write(l)
+		time.Sleep(10 * time.Millisecond)
+	}
+}
+
+type BlueChase struct{}
+
+func (BlueChase) Display(c rpioapa102.LEDController, l []rpioapa102.LED) {
+	for i := 0; i < len(l); i++ {
+		l[i] = off
+	}
+	c.Write(l)
+
+	for i := 0; i < len(l); i++ {
+		if i > 5 {
+			l[i-6] = off
+		}
+		l[i] = blue
+		c.Write(l)
+		time.Sleep(10 * time.Millisecond)
+	}
+
+	for i := len(l) - 1; i >= 0; i-- {
+		if i < len(l)-6 {
+			l[i+5] = off
+		}
+		l[i] = blue
+		c.Write(l)
+		time.Sleep(10 * time.Millisecond)
+	}
+}
+
+type CyanChase struct{}
+
+func (CyanChase) Display(c rpioapa102.LEDController, l []rpioapa102.LED) {
+	for i := 0; i < len(l); i++ {
+		l[i] = off
+	}
+	c.Write(l)
+
+	for i := 0; i < len(l); i++ {
+		if i > 5 {
+			l[i-6] = off
+		}
+		l[i] = cyan
+		c.Write(l)
+		time.Sleep(10 * time.Millisecond)
+	}
+
+	for i := len(l) - 1; i >= 0; i-- {
+		if i < len(l)-6 {
+			l[i+5] = off
+		}
+		l[i] = cyan
+		c.Write(l)
+		time.Sleep(10 * time.Millisecond)
+	}
+}
+
+type VioletChase struct{}
+
+func (VioletChase) Display(c rpioapa102.LEDController, l []rpioapa102.LED) {
+	for i := 0; i < len(l); i++ {
+		l[i] = off
+	}
+	c.Write(l)
+
+	for i := 0; i < len(l); i++ {
+		if i > 5 {
+			l[i-6] = off
+		}
+		l[i] = violet
+		c.Write(l)
+		time.Sleep(10 * time.Millisecond)
+	}
+
+	for i := len(l) - 1; i >= 0; i-- {
+		if i < len(l)-6 {
+			l[i+5] = off
+		}
+		l[i] = violet
+		c.Write(l)
+		time.Sleep(10 * time.Millisecond)
 	}
 }
 
@@ -60,8 +164,8 @@ func (Collide) Display(c rpioapa102.LEDController, l []rpioapa102.LED) {
 			l[len(l)-i+5] = off
 		}
 		if i > len(l)/2 {
-			l[i] = purple
-			l[len(l)-1-i] = purple
+			l[i] = violet
+			l[len(l)-1-i] = violet
 		} else {
 			l[i] = red
 			l[len(l)-1-i] = blue

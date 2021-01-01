@@ -54,15 +54,23 @@ func main() {
 		os.Exit(0)
 	}()
 
-	d := pattern.Chase{}
+	cr := pattern.RedChase{}
+	cg := pattern.GreenChase{}
+	cb := pattern.BlueChase{}
+	cc := pattern.CyanChase{}
+	cv := pattern.VioletChase{}
 	c := pattern.Collide{}
 	b := pattern.Breath{}
+
+	d := []pattern.Pattern{cr, cg, cb, cc, cv, c, c, c, b, b, b}
+
 	for {
 		if time.Now().Hour() > 5 {
-			d.Display(controller, rgbLEDs)
-			c.Display(controller, rgbLEDs)
-			c.Display(controller, rgbLEDs)
-			b.Display(controller, rgbLEDs)
+			d[random.Intn(len(d)-1)].Display(controller, rgbLEDs)
+			//d.Display(controller, rgbLEDs)
+			//c.Display(controller, rgbLEDs)
+			//c.Display(controller, rgbLEDs)
+			//b.Display(controller, rgbLEDs)
 		} else {
 			for i := 0; i < len(rgbLEDs); i++ {
 				rgbLEDs[i] = rpioapa102.LED{0, 0, 0, 0}
