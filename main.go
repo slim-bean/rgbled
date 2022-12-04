@@ -25,6 +25,10 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+	starPin := rpio.Pin(17)
+	starPin.Mode(rpio.Output)
+	starPin.Low()
+	starOn := false
 
 	controller := rpioapa102.NewLEDController(rpio.Spi0)
 
@@ -76,8 +80,16 @@ func main() {
 				d[random.Intn(len(d)-1)].Display(controller, rgbLEDs)
 			}
 		} else if time.Now().Hour() > 5 {
+			if !starOn {
+				starPin.High()
+				starOn = true
+			}
 			d[random.Intn(len(d)-1)].Display(controller, rgbLEDs)
 		} else {
+			if starOn {
+				starPin.Low()
+				starOn = false
+			}
 			for i := 0; i < len(rgbLEDs); i++ {
 				rgbLEDs[i] = rpioapa102.LED{0, 0, 0, 0}
 			}
